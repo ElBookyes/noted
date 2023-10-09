@@ -1,0 +1,29 @@
+@use "../abstracts" as *;
+
+.dropdown {
+    position: absolute;
+    right: -15%;
+    background-color: $color-current-opacity;
+    border-radius: 10px;
+    padding: .5rem;
+}
+
+.nav-item {
+    position: relative;
+    list-style: none;
+}
+
+.menu-item {
+
+    .menu-button {
+        min-width: 2rem;
+        margin: .5rem;
+        border: 0;
+
+        &:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+            transition: 200ms ease;
+        }
+    }
+}

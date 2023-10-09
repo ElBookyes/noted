@@ -1,0 +1,40 @@
+@use "../abstracts" as *;
+
+.card {
+    grid-auto-flow: row;
+    width: 280px;
+    height: 280px;
+    overflow: hidden;
+    & .note-content {
+        overflow: hidden;
+    }
+    & .bottom-note {
+        align-items: end;
+
+        & .note-button:hover {
+            box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.2);
+            transform: scale(1.2);
+            transition: ease 200ms;
+        }
+    }
+}
+
+.yellow {
+    background-color: $color-current-yellow;
+}
+
+.red {
+    background-color: $color-current-red;
+}
+
+.green {
+    background-color: $color-current-green;
+}
+
+.cyan {
+    background-color: $color-current-cyan;
+}
+
+.pink {
+    background-color: $color-current-pink;
+}

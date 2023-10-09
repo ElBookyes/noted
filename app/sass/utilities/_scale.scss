@@ -1,0 +1,8 @@
+@use "../abstracts/" as *;
+
+.#{$prefix}{
+    &scale:hover {
+        transform: scale(1.1);
+        transition: ease 250ms;
+    }
+}

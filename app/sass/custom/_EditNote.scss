@@ -1,0 +1,86 @@
+@use "../abstracts" as *;
+
+.dark-bg {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0 0 0 / 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    left: 0px;
+    top: 0px;
+}
+
+.add-note {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    max-width: 480px;
+    max-height: 620px;
+    gap: 1rem;
+    border-radius: 6px;
+    padding: .5rem;
+
+    @include mq(small) {
+        padding: 2rem;
+    };
+
+    & .note-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        & .note-buttons {
+            display: flex;
+            gap: 1rem;
+            & button {
+                padding: .75rem .5rem;
+            }
+        }
+    }
+
+    & textarea {
+        width: 100%;
+        font-weight: 600;
+        padding: .5rem 1rem .5rem 1rem;
+        border-radius: 4px;
+        border: none;
+        background: transparent;
+        resize: none;
+        outline: none;
+        // scrollbar for Firefox
+        scrollbar-color: $color-current-black $color-current-transparent; 
+        &::placeholder {
+            color: $color-current-black;
+            opacity: 1; // Firefox
+        }
+        &::-ms-input-placeholder { /* Microsoft Edge */
+            color: $color-current-black;
+        }
+        &::-webkit-scrollbar {
+            width: 0.5rem;
+        }
+        
+        &::-webkit-scrollbar-track {
+          background-color: $color-current-transparent;
+          border-radius: 100vw;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+          background-color: $color-current-black;
+          border-radius: 100vw;
+        }
+    }
+    & button {
+        color: $color-current-000;
+        background-color: $color-current-black;
+        &:hover {
+            color: $color-current-black;
+            background-color: $color-current-000;
+            transition: 200ms ease;
+        }
+    }
+}

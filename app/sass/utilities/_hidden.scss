@@ -1,0 +1,8 @@
+@use "../abstracts/" as *;
+
+.#{$prefix} {
+    &hidden {
+        display: none;
+    }
+}
+

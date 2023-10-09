@@ -1,0 +1,20 @@
+@use "../abstracts/" as *;
+
+.#{$prefix} {
+  &heading-1 {
+    @include heading($heading-2-font-size, $heading-1-color);
+    @include mq(small) {
+      font-size: $heading-1-font-size;
+    }
+  }
+}
+.#{$prefix} {
+  &heading-2 {
+    @include heading($heading-2-font-size, $heading-2-color);
+  }
+}
+.#{$prefix} {
+  &heading-3 {
+    @include heading($heading-3-font-size, $heading-3-color);
+  }
+}

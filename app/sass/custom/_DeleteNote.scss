@@ -1,0 +1,16 @@
+@use "../abstracts" as *;
+
+.delete-note {
+    max-width: 280px;
+    max-height: 260px;
+    & button {
+        width: 100%;
+        color: $color-current-000;
+        background-color: $color-current-black;
+        &:hover {
+            color: $color-current-black;
+            background-color: $color-current-000;
+            transition: 200ms ease;
+        }
+    }
+}

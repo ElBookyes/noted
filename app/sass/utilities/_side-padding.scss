@@ -1,0 +1,14 @@
+@use "../abstracts/" as *;
+
+$grid-unit: 32;
+$grid-val: calc(100/var(--grid-unit));
+$site-width: 1200px;
+$side-padding: calc(var(--grid-val)*2vw);
+
+
+.#{$prefix} {
+    &side-padding {
+        max-width: calc(var($site-width) + var($side-padding)*2);
+        padding: 0 var($side-padding);
+    }
+}

@@ -1,0 +1,15 @@
+@use "../abstracts/" as *;
+
+.#{$prefix} {
+  &round {
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+  }
+
+  &round[data-type="top"] {
+    border-radius: 100vw 100vw 0 0;
+  }
+  &round[data-type="bottom"] {
+    border-radius: 0 0 100vw 100vw;
+  }
+}

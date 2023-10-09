@@ -1,0 +1,35 @@
+@use "../abstracts" as *;
+
+// Nav.tsx
+.header {
+  background-blend-mode: luminosity;
+  @include mq(medium) {
+    display: grid;
+    height: 100%;
+    background-blend-mode: luminosity;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    &:first-child {
+      height: 100%;
+    }
+  }
+}
+
+.aside-nav {
+  height: 100%;
+  @include mq(medium) {
+    flex-direction: column;
+  }
+}
+
+// Logged.tsx
+
+.Logged {
+  display: grid;
+  gap: .5rem;
+
+  .image {
+    justify-self: center;
+    grid-row-start: 1;
+  }
+}
