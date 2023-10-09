@@ -1,8 +1,6 @@
 'use client'
 import React from 'react'
 import { useState } from 'react'
-import styled from 'styled-components'
-import MenuIcon from '../icons/menuIcon'
 
 type Props = {
   children: React.ReactNode
