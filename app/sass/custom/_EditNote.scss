@@ -19,14 +19,14 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    max-width: 480px;
-    max-height: 620px;
     gap: 1rem;
     border-radius: 6px;
     padding: .5rem;
 
     @include mq(small) {
         padding: 2rem;
+        max-width: 480px;
+        max-height: 620px;
     };
 
     & .note-options {
