@@ -39,6 +39,9 @@
 }
 
 .main-header {
+    & h1 {
+        padding-top: .5rem;
+    }
     & .search-bar {
         display: flex;
         margin: 0 auto;
