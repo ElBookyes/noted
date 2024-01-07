@@ -3,6 +3,9 @@ import BinIcon from "../icons/binIcon"
 import StarIcon from "../icons/starIcon"
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import toast from "react-hot-toast"
+import axios, { AxiosError } from "axios"
 import EditNote from "./EditNote"
 import DeleteNote from "./DeleteNote"
 
@@ -14,10 +17,44 @@ type Props = {
   id: string
 }
 
+type Data = {
+  name: string
+  postId: string
+}
+
 const Note = ({ title, color, date, id } : Props) => {
   const [toggle, setToggle] = useState(false)
   const [deleteToggle, setDeleteToggle] = useState(false)
   const [highlighted, setHighlighted] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
+  const queryClient = useQueryClient()
+  let toastPostID = "toastID";
+
+  const { mutate } = useMutation(
+    async (data: Data) =>
+      await axios.put("/api/notes/addFavorites", {
+        data,
+      }),
+      {
+        onError: (error) => {
+          if (error instanceof AxiosError) {
+            toast.error(error?.response?.data.message, {id: toastPostID})
+          }
+          setIsDisabled(false)
+        },
+        onSuccess: (data) => {
+          queryClient.invalidateQueries(["fav-notes"])
+          toast.success("Note added to favorites!", {id: toastPostID})
+          setIsDisabled(false)
+        },
+      }
+    )
+    const handleClick = async ( name: string ) => {
+      setIsDisabled(true)
+      toastPostID = toast.loading("Adding to favorites", { id: toastPostID})
+      mutate({name, postId: id})
+    }
+
   return (
     <>
     <motion.div className={`card | kpds-card kpds-pointer ${color}`}
@@ -46,6 +83,7 @@ const Note = ({ title, color, date, id } : Props) => {
                     e.preventDefault()
                     e.stopPropagation()
                     setHighlighted(!highlighted)
+                    handleClick('favorites')
                     console.log(highlighted)
                   }}>
                   <StarIcon highlighted={highlighted} />

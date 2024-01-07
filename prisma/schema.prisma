@@ -31,6 +31,13 @@ model Post {
   published Boolean  @default(false)
   userId    String   
   user      User     @relation(fields: [userId], references: [id])
+  favorites FavoritesTag[]
+}
+
+model FavoritesTag {
+  id    String   @id @default(cuid())
+  name  String 
+  posts Post[]
 }
 
 enum Color {

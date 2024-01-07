@@ -1,6 +1,7 @@
 'use client'
 import { useState } from "react";
 import MyNotes from "./MyNotes";
+import FavoriteNotes from "./FavoriteNotes";
 
 
 export default function Main() {
