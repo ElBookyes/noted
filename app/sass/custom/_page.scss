@@ -113,3 +113,12 @@
       border-radius: 100vw;
     }
 }
+
+.categories {
+    display: flex;
+    gap: .75rem;
+}
+
+.current-category {
+    border-bottom: solid 1px $color-current-000;
+}

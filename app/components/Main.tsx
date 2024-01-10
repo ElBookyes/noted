@@ -2,10 +2,13 @@
 import { useState } from "react";
 import MyNotes from "./MyNotes";
 import FavoriteNotes from "./FavoriteNotes";
-
+import PublicNotes from "./PublicNotes";
 
 export default function Main() {
     const[searchQuery, setSearchQuery] = useState('');
+    const[favToggle, setFavToggle] = useState(false);
+    const[publicToggle, setPublicToggle] = useState(false);
+    const[myNotesToggle, setMyNotesToggle] = useState(true);
   return (
     <>
       <div className="kpds-container">
@@ -23,9 +26,22 @@ export default function Main() {
             </label>
           </form>
         </div>
+        <div className="categories">
+          <button onClick={() => {setFavToggle(false)
+                                  setMyNotesToggle(true)
+                                  setPublicToggle(false)}} className={`${myNotesToggle ? 'current-category kpds-fw-bold' : ''} my-notes | kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 clean kpds-pointer`}>My Notes</button>
+          <button onClick={() => {setFavToggle(true)
+                                  setMyNotesToggle(false)
+                                  setPublicToggle(false)}} className={`${favToggle ? 'current-category kpds-fw-bold' : ''} favorite-notes | kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 clean kpds-pointer`}>Favorite Notes</button>
+          <button onClick={() => {setFavToggle(false)
+                                  setMyNotesToggle(false)
+                                  setPublicToggle(true)}}  className={`${publicToggle ? 'current-category kpds-fw-bold' : ''} public-notes | kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 clean kpds-pointer`}>Public Notes</button>
+        </div>
       </div>
       <section className="note-section | kpds-container">
-        <MyNotes searchQuery={searchQuery} />
+        {myNotesToggle && <MyNotes searchQuery={searchQuery} />}
+        {favToggle && <FavoriteNotes searchQuery={searchQuery} />}
+        {publicToggle && <PublicNotes searchQuery={searchQuery}/>}
       </section>
     </>
   );

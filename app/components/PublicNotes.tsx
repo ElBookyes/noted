@@ -6,22 +6,24 @@ import Loading from './loading';
 import { useState, useEffect } from 'react';
 import { AuthNotes } from '../types/AuthNotes';
 import { SearchQuery } from '../types/SearchQuery';
+import PublicNote from './PublicNote';
 
-export default function FavoriteNotes( { searchQuery } : SearchQuery ) {
+export default function PublicNotes({ searchQuery } : SearchQuery) {
     const [notes, setNotes] = useState([])
 
-    const fetchFavNotes = async () => {
-        const response = await axios.get("/api/notes/getFavoriteNotes")
+    const publicNotes = async () => {
+        const response = await axios.get("/api/notes/getPublicNotes")
         return response.data
     }
-    const { data, isLoading, } = useQuery({
-        queryFn: fetchFavNotes,
-        queryKey: ['fav-notes'],
+    const { data, isLoading } = useQuery({
+        queryFn: publicNotes,
+        queryKey: ['public-notes'],
     })
+
     useEffect(() => {
         if (searchQuery.length > 0) {
             if (data) {
-                setNotes(data.Post.filter((note: AuthNotes) => 
+                setNotes(data.filter((note: AuthNotes) => 
                 note.title.trim().includes(searchQuery)
                 ))
             }
@@ -30,17 +32,17 @@ export default function FavoriteNotes( { searchQuery } : SearchQuery ) {
             }
         }
     }, [data, searchQuery])
-    
+
     if(isLoading) {
         return <Loading />
     } else if (!data) {
-        return <p className='kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 kpds-text-center'>Click the plus button to create a new note !</p>
+        return <p className='kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 kpds-text-center'>There are no public notes !</p>
     }
   return (
     <div className='overflow-section'>
-        {searchQuery.length ? notes?.map((note : AuthNotes) => (
+                {searchQuery.length ? notes?.map((note : AuthNotes) => (
                     <>
-                    <Note 
+                    <PublicNote 
                       id={note.id}
                       key={note.id}
                       title={note.title}
@@ -51,7 +53,7 @@ export default function FavoriteNotes( { searchQuery } : SearchQuery ) {
                 ))
             : data?.map((note : AuthNotes) => (
                 <>
-                <Note 
+                <PublicNote 
                     id={note.id}
                     key={note.id}
                     title={note.title}
