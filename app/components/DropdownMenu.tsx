@@ -30,6 +30,8 @@ export default function DropdownMenu() {
         },
         onSuccess: (data) => {
           queryClient.invalidateQueries(["auth-notes"])
+          queryClient.invalidateQueries(["fav-notes"]);
+          queryClient.invalidateQueries(["public-notes"]);
           toast.success("Note has been made!", {id: toastPostID})
           setIsDisabled(false)
         },

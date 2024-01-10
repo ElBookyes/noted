@@ -25,6 +25,8 @@ export default function DeleteNote( { id, setDeleteToggle, color}: Props) {
         onSuccess: (data) => {
           console.log(data);
           queryClient.invalidateQueries(["auth-notes"]);
+          queryClient.invalidateQueries(["fav-notes"]);
+          queryClient.invalidateQueries(["public-notes"]);
           toast.success("Note has been deleted.", {id: deleteToastID });
         },
       }

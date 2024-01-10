@@ -17,6 +17,9 @@ export default async function handler(
     // Get Auth Users Notes
     try {
       const data = await prisma.post.findMany({
+        orderBy: {
+          createdAt: "desc"
+        },
         include: {
           favorites: true
         },

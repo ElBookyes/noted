@@ -43,6 +43,8 @@ export default function EditNote({ setToggle, color, id, content } : ToggleProps
           setTitle("")
           setIsDisabled(false)
           queryClient.invalidateQueries(["auth-notes"])
+          queryClient.invalidateQueries(["fav-notes"]);
+          queryClient.invalidateQueries(["public-notes"]);
           toast.success("Note has been updated!", {id: toastPostID})
         },
       }

@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import toast from "react-hot-toast"
 import axios, { AxiosError } from "axios"
+import StarIcon from '../icons/starIcon'
+import ViewNote from './ViewNote'
 
 type Props = {
   title: string
@@ -19,7 +21,9 @@ type Data = {
 }
 
 const PublicNote = ({ title, color, date, id } : Props) => {
+  const [toggle, setToggle] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
+  const [highlighted, setHighlighted] = useState(false)
   const queryClient = useQueryClient()
   let toastPostID = "toastID";
 
@@ -55,14 +59,28 @@ const PublicNote = ({ title, color, date, id } : Props) => {
            initial={{ opacity: 0, scale: 0.8}}
            transition={{ease: "easeOut" }}
            whileHover={{scale: 1.035}}
+           onClick={() => setToggle(true)}
            >
         <div className="note-content">
           {title}
         </div>
         <div className="bottom-note | kpds-nav kpds-site-header__inner">
             <div className="kpds-flex-group">{date.substring(0, date.length - 14)}</div>
+            <div className="kpds-site-header__inner">
+                <button className="note-button | kpds-pointer kpds-round kpds-borderless"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setHighlighted(!highlighted)
+                    handleClick('favorites')
+                    console.log(highlighted)
+                  }}>
+                  <StarIcon highlighted={highlighted} />
+                </button>
+            </div>
         </div>
     </motion.div>
+    {toggle && <ViewNote id={id} content={title} color={color} setToggle={setToggle} />}
     </>
   )
 }

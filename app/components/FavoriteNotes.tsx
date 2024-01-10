@@ -2,7 +2,6 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import Note from './Note';
-import Loading from './loading';
 import { useState, useEffect } from 'react';
 import { AuthNotes } from '../types/AuthNotes';
 import { SearchQuery } from '../types/SearchQuery';
@@ -21,7 +20,7 @@ export default function FavoriteNotes( { searchQuery } : SearchQuery ) {
     useEffect(() => {
         if (searchQuery.length > 0) {
             if (data) {
-                setNotes(data.Post.filter((note: AuthNotes) => 
+                setNotes(data.filter((note: AuthNotes) => 
                 note.title.trim().includes(searchQuery)
                 ))
             }
@@ -30,12 +29,11 @@ export default function FavoriteNotes( { searchQuery } : SearchQuery ) {
             }
         }
     }, [data, searchQuery])
-    
-    if(isLoading) {
-        return <Loading />
-    } else if (!data) {
+
+    if (!data) {
         return <p className='kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 kpds-text-center'>Click the plus button to create a new note !</p>
     }
+
   return (
     <div className='overflow-section'>
         {searchQuery.length ? notes?.map((note : AuthNotes) => (

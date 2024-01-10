@@ -2,7 +2,6 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import Note from './Note';
-import Loading from './loading';
 import { useState, useEffect } from 'react';
 import { AuthNotes } from '../types/AuthNotes';
 import { SearchQuery } from '../types/SearchQuery';
@@ -14,7 +13,7 @@ export default function MyNotes( { searchQuery } : SearchQuery) {
         const response = await axios.get("/api/notes/authNotes")
         return response.data
     }
-    const { data, isLoading, } = useQuery({
+    const { data } = useQuery({
         queryFn: fetchAuthNotes,
         queryKey: ['auth-notes'],
     })
@@ -32,9 +31,7 @@ export default function MyNotes( { searchQuery } : SearchQuery) {
         }
     }, [data, searchQuery])
 
-    if(isLoading) {
-        return <Loading />
-    } else if (!data) {
+    if (!data) {
         return <p className='kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 kpds-text-center'>Click the plus button to create a new note !</p>
     }
     
