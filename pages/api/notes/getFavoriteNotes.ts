@@ -22,6 +22,9 @@ export default async function handler(
         },
         include: {
           Post: {
+            orderBy: {
+              createdAt: "desc",
+            },
             where: {
               favorites: {
                 some: {
@@ -30,7 +33,7 @@ export default async function handler(
               },
             }
           }
-        }
+        },
     });
 
       return console.log(res.status(200).json(data), 'data')
