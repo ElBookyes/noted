@@ -16,20 +16,21 @@ export default async function handler(
     }
     // Get Auth Users Notes
     try {
-      const data = await prisma.post.findMany({
-        orderBy: {
-          createdAt: "desc"
+      const data = await prisma.user.findUnique({
+        where: {
+          email: session.user?.email || "",
         },
         include: {
-          favorites: true
-        },
-        where: {
-          favorites: {
-            some: {
-              name: 'favorites',
-            },
-          },
-        },
+          Post: {
+            where: {
+              favorites: {
+                some: {
+                  name: 'favorites',
+                },
+              },
+            }
+          }
+        }
     });
 
       return console.log(res.status(200).json(data), 'data')

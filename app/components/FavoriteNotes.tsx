@@ -20,7 +20,7 @@ export default function FavoriteNotes( { searchQuery } : SearchQuery ) {
     useEffect(() => {
         if (searchQuery.length > 0) {
             if (data) {
-                setNotes(data.filter((note: AuthNotes) => 
+                setNotes(data.Post.filter((note: AuthNotes) => 
                 note.title.trim().includes(searchQuery)
                 ))
             }
@@ -47,7 +47,7 @@ export default function FavoriteNotes( { searchQuery } : SearchQuery ) {
                     />
                     </>
                 ))
-            : data?.map((note : AuthNotes) => (
+            : data?.Post.map((note : AuthNotes) => (
                 <>
                 <Note 
                     id={note.id}
