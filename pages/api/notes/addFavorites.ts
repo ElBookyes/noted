@@ -46,7 +46,7 @@ export default async function handler(
                 },
                 data: {
                     favorites: {
-                        create: { name: 'favorites'},
+                        create: { name: session?.user?.email! },
                     },
                 },
             });

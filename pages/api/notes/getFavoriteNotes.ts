@@ -14,27 +14,18 @@ export default async function handler(
     if (!session) {
       return res.status(401).json({ message: "Please signin to create a note." })
     }
+
     // Get Auth Users Notes
     try {
-      const data = await prisma.user.findUnique({
+      const data = await prisma.post.findMany({
         where: {
-          email: session.user?.email || "",
-        },
-        include: {
-          Post: {
-            orderBy: {
-              createdAt: "desc",
-            },
-            where: {
-              favorites: {
-                some: {
-                  name: 'favorites',
-                },
-              },
+          favorites: {
+            some: {
+              name: session.user?.email || "",
             }
           }
-        },
-    });
+        }
+      },);
 
       return console.log(res.status(200).json(data), 'data')
     } catch (err) {
