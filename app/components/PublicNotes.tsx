@@ -38,7 +38,7 @@ export default function PublicNotes({ searchQuery } : SearchQuery) {
         return <Loading />;
     }
 
-    if (!data) {
+    if (!data || data.Post.length === 0) {
         return <p className='kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 kpds-text-center'>Click the plus button to create a new note !</p>
     }
 
