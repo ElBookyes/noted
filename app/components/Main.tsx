@@ -3,6 +3,7 @@ import { useState } from "react";
 import MyNotes from "./MyNotes";
 import FavoriteNotes from "./FavoriteNotes";
 import PublicNotes from "./PublicNotes";
+import { SessionProvider } from "next-auth/react";
 
 export default function Main() {
     const[searchQuery, setSearchQuery] = useState('');
@@ -39,9 +40,11 @@ export default function Main() {
         </div>
       </div>
       <section className="note-section | kpds-container">
-        {myNotesToggle && <MyNotes searchQuery={searchQuery} />}
-        {favToggle && <FavoriteNotes searchQuery={searchQuery} />}
-        {publicToggle && <PublicNotes searchQuery={searchQuery}/>}
+        <SessionProvider>
+          {myNotesToggle && <MyNotes searchQuery={searchQuery} />}
+          {favToggle && <FavoriteNotes searchQuery={searchQuery} />}
+          {publicToggle && <PublicNotes searchQuery={searchQuery}/>}
+        </SessionProvider>
       </section>
     </>
   );

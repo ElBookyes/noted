@@ -24,10 +24,6 @@ export default async function handler(
         const prismaUser = await prisma.user.findUnique({
             where: {email: session?.user?.email! },
         })
-        //Check title
-        if (title.length > 300) {
-            return res.status(403).json({ message: "Please write a shorter note"})
-        }
         if (!title.length) {
             return res
               .status(403)
