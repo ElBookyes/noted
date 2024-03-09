@@ -37,7 +37,7 @@ export default function FavoriteNotes( { searchQuery } : SearchQuery ) {
         return <Loading />;
     }
 
-    if (!data || data.Post.length === 0) {
+    if (!data || data == 0) {
         return <p className='kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 kpds-text-center'>Click the plus button to create a new note !</p>
     }
 
