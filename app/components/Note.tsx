@@ -8,6 +8,7 @@ import toast from "react-hot-toast"
 import axios, { AxiosError } from "axios"
 import EditNote from "./EditNote"
 import DeleteNote from "./DeleteNote"
+import MakePublic from "./MakePublic"
 
 type Props = {
   title: string
@@ -25,6 +26,7 @@ type Data = {
 const Note = ({ title, color, date, id } : Props) => {
   const [toggle, setToggle] = useState(false)
   const [deleteToggle, setDeleteToggle] = useState(false)
+  const [makePublicToggle, setMakePublicToggle] = useState(false)
   const [highlighted, setHighlighted] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
   const queryClient = useQueryClient()
@@ -49,6 +51,7 @@ const Note = ({ title, color, date, id } : Props) => {
         },
       }
     )
+
     const handleClick = async ( name: string ) => {
       setIsDisabled(true)
       toastPostID = toast.loading("Adding to favorites", { id: toastPostID})
@@ -88,11 +91,20 @@ const Note = ({ title, color, date, id } : Props) => {
                   }}>
                   <StarIcon highlighted={highlighted} />
                 </button>
+                <button className="note-button | kpds-pointer kpds-round kpds-borderless"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setMakePublicToggle(true)
+                  }}>
+                    Pu
+                </button>
             </div>
         </div>
     </motion.div>
     {toggle && <EditNote id={id} content={title} color={color} setToggle={setToggle} />}
     {deleteToggle && <DeleteNote id={id} color={color} setDeleteToggle={setDeleteToggle} />}
+    {makePublicToggle && <MakePublic id={id} color={color} setMakePublicToggle={setMakePublicToggle} />}
     </>
   )
 }

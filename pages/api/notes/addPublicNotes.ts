@@ -10,19 +10,12 @@ export default async function handler(
     res: NextApiResponse
 ) {
     if(req.method === "PUT") {
-        const session = await getServerSession(req, res, authOptions) //Check if signed in
-        if (!session) {
-            return res
-              .status(401)
-              .json({ message: "Please sign in to create a note"})
-        }
+        const session = await getServerSession(req, res, authOptions)
 
-        //Get Specific User
         const prismaUser = await prisma.user.findUnique({
-            where: {email: session?.user?.email! },
+            where: { email: session?.user?.email! },
         })
-        
-        //Get specific Note
+
         const { postId, name } = req.body.data
 
         if (!name) {
@@ -38,24 +31,24 @@ export default async function handler(
         console.log("Name:", name);
         console.log("Post ID:", postId);
 
-        //Add Favorite Category
+        //Add Public Category
         try {
             const result = await prisma.post.update({
-                where : {
+                where: {
                     id: postId,
                 },
                 data: {
-                    favorites: {
-                        create: { name: session?.user?.email! },
+                    public: {
+                        create: [{ name: 'public' }]
                     },
                 },
             });
             res.status(200).json(result)
             console.log(result)
-            console.log('Tag added to post:', result);
+            console.log('Public tag added to post:', result);
         } catch (err) {
-            console.error('Error creating favorite tag:', err);
-            res.status(403).json({ message: "Error has occurred while creating a favorite tag" });
+            console.error('Error creating favorites tag:', err);
+            res.status(403).json({ message: "Error has occured while creating a favorite tag" })
         }
     }
 }

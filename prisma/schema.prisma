@@ -32,11 +32,18 @@ model Post {
   userId    String   
   user      User     @relation(fields: [userId], references: [id])
   favorites FavoritesTag[]
+  public PublicTag[]
 }
 
 model FavoritesTag {
   id    String   @id @default(cuid())
   name  String 
+  posts Post[]
+}
+
+model PublicTag {
+  id String @id @default(cuid())
+  name String
   posts Post[]
 }
 
