@@ -74,7 +74,7 @@
     max-height: 65%;
     margin-top: $size-13;
     // scrollbar for Firefox
-    scrollbar-color: $color-current-black $color-current-transparent;
+    scrollbar-color: $color-current-000 $color-current-transparent;
     @include mq(medium) {
         max-height: 100%;
     }
