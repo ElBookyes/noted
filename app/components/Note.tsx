@@ -91,13 +91,13 @@ const Note = ({ title, color, date, id } : Props) => {
                   }}>
                   <StarIcon highlighted={highlighted} />
                 </button>
-                <button className="note-button | kpds-pointer kpds-round kpds-borderless"
+                <button className="public-button note-button | kpds-pointer kpds-round kpds-borderless"
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
                     setMakePublicToggle(true)
                   }}>
-                    Pu
+                    P
                 </button>
             </div>
         </div>

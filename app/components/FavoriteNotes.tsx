@@ -33,7 +33,7 @@ export default function FavoriteNotes( { searchQuery } : SearchQuery ) {
         }
     }, [data, searchQuery])
 
-    if (isLoading && status === "loading") {
+    if (isLoading && status === "authenticated") {
         return <Loading />;
     }
 
