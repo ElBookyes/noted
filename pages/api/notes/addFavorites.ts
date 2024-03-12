@@ -16,12 +16,7 @@ export default async function handler(
               .status(401)
               .json({ message: "Please sign in to create a note"})
         }
-
-        //Get Specific User
-        const prismaUser = await prisma.user.findUnique({
-            where: {email: session?.user?.email! },
-        })
-        
+     
         //Get specific Note
         const { postId, name } = req.body.data
 
@@ -42,7 +37,6 @@ export default async function handler(
         }
 
         console.log("Session:", session);
-        console.log("Prisma User:", prismaUser);
         console.log("Name:", name);
         console.log("Post ID:", postId);
 
