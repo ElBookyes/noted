@@ -11,16 +11,12 @@ export default async function handler(
 ) {
     if(req.method === "PUT") {
         const session = await getServerSession(req, res, authOptions)
-        const { postId, name } = req.body.data
+        const { postId } = req.body.data
 
         const post = await prisma.post.findUnique({
             where: { id: postId },
             include: { public: true }
         })
-
-        if (!name) {
-            return res.status(400).json({ message: "Name is required for creating a favorite tag" });
-        }
 
         if (!postId) {
             return res.status(400).json({ message: "POSTID BRO" });
