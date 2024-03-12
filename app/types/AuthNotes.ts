@@ -3,4 +3,8 @@ export type AuthNotes = {
     createdAt: string
     title: string
     color: string
+    favorites: {
+      id: string
+      name: string
+    }
   }

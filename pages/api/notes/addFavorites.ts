@@ -25,6 +25,14 @@ export default async function handler(
         //Get specific Note
         const { postId, name } = req.body.data
 
+        const post = await prisma.post.findUnique({
+            where: { id: postId },
+            include: { favorites: true }
+        })
+
+        const hasFavoriteTag = post?.favorites.some(favorite => favorite.name === session?.user?.email);
+        const favoriteTag = post?.favorites.find(favorite => favorite.name === session.user?.email);
+
         if (!name) {
             return res.status(400).json({ message: "Name is required for creating a favorite tag" });
         }
@@ -39,20 +47,36 @@ export default async function handler(
         console.log("Post ID:", postId);
 
         //Add Favorite Category
-        try {
-            const result = await prisma.post.update({
-                where : {
-                    id: postId,
-                },
-                data: {
-                    favorites: {
-                        create: { name: session?.user?.email! },
-                    },
-                },
-            });
-            res.status(200).json(result)
-            console.log(result)
-            console.log('Tag added to post:', result);
+        try { 
+            if (!hasFavoriteTag) {
+                const newFavoritesTag = await prisma.favoritesTag.create({
+                    data: {
+                        name: session?.user?.email!
+                    }
+                });
+
+                await prisma.post.update({
+                    where: { id: postId },
+                    data: {
+                        favorites: {
+                           connect: { id: newFavoritesTag.id } 
+                        }
+                    }
+                });
+                console.log('Favorite tag added to the post');
+            } else {
+                await prisma.post.update({
+                    where: {id: postId },
+                    data: {
+                        favorites: {
+                            disconnect: { id: favoriteTag?.id }
+                        }
+                    }
+                });
+            }
+            res.status(200).json(post)
+            console.log(post)
+            console.log('Favorite tag added to post:', post);
         } catch (err) {
             console.error('Error creating favorite tag:', err);
             res.status(403).json({ message: "Error has occurred while creating a favorite tag" });
