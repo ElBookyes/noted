@@ -40,14 +40,14 @@ const PublicNote = ({ title, color, date, id } : Props) => {
         },
         onSuccess: (data) => {
           queryClient.invalidateQueries(["fav-notes"])
-          toast.success("Note added to favorites!", {id: toastPostID})
+          toast.success("Note is updated !", {id: toastPostID})
           setIsDisabled(false)
         },
       }
     )
     const handleClick = async ( name: string ) => {
       setIsDisabled(true)
-      toastPostID = toast.loading("Adding to favorites", { id: toastPostID})
+      toastPostID = toast.loading("Updating note", { id: toastPostID})
       mutate({name, postId: id})
     }
 
