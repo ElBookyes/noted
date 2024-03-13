@@ -23,7 +23,6 @@ type Data = {
 const PublicNote = ({ title, color, date, id } : Props) => {
   const [toggle, setToggle] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
-  const [highlighted, setHighlighted] = useState(false)
   const queryClient = useQueryClient()
   let toastPostID = "toastID";
 
@@ -71,11 +70,9 @@ const PublicNote = ({ title, color, date, id } : Props) => {
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
-                    setHighlighted(!highlighted)
                     handleClick('favorites')
-                    console.log(highlighted)
                   }}>
-                  <StarIcon highlighted={highlighted} />
+                  <StarIcon />
                 </button>
             </div>
         </div>
