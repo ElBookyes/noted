@@ -11,6 +11,7 @@ import { useSession } from 'next-auth/react';
 export default function FavoriteNotes( { searchQuery } : SearchQuery ) {
     const [notes, setNotes] = useState([])
     const {data: session, status } = useSession();
+    const [fromFavorites, setFromFavorites] = useState(true);
 
     const fetchFavNotes = async () => {
         const response = await axios.get("/api/notes/getFavoriteNotes")
@@ -52,6 +53,7 @@ export default function FavoriteNotes( { searchQuery } : SearchQuery ) {
                       title={note.title}
                       color={note.color}
                       date={note.createdAt}
+                      fromFavorites={fromFavorites}
                     />
                     </>
                 ))
@@ -63,6 +65,7 @@ export default function FavoriteNotes( { searchQuery } : SearchQuery ) {
                     title={note.title}
                     color={note.color}
                     date={note.createdAt}
+                    fromFavorites={fromFavorites}
                     />
                 </>
             ))}

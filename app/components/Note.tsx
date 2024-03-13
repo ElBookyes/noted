@@ -17,6 +17,7 @@ type Props = {
   date: string
   key: string
   id: string
+  fromFavorites: boolean
 }
 
 type Data = {
@@ -24,7 +25,7 @@ type Data = {
   postId: string
 }
 
-const Note = ({ title, color, date, id } : Props) => {
+const Note = ({ title, color, date, id, fromFavorites } : Props) => {
   const [toggle, setToggle] = useState(false)
   const [deleteToggle, setDeleteToggle] = useState(false)
   const [makePublicToggle, setMakePublicToggle] = useState(false)
@@ -92,7 +93,7 @@ const Note = ({ title, color, date, id } : Props) => {
                   } }>
                   <BinIcon />
                 </button>
-                <button className={`note-button | kpds-pointer kpds-round kpds-borderless ${isFavorite ? 'favorite-highlighted' : ''}`}
+                <button className={`note-button | kpds-pointer kpds-round kpds-borderless ${isFavorite ? 'favorite-highlighted' : ''} ${fromFavorites ? 'favorite-highlighted' : ''}`}
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
