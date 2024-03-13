@@ -24,7 +24,6 @@ export default async function handler(
 
         console.log("Session:", session);
         console.log("Prisma User:", post);
-        console.log("Name:", name);
         console.log("Post ID:", postId);
 
 

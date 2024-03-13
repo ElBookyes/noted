@@ -32,6 +32,14 @@
     }
 }
 
+.public-button-highlighted {
+    color: $color-current-yellow !important;
+}
+
+.favorite-highlighted > svg > path {
+    fill: $color-current-yellow !important;
+}
+
 .yellow {
     background-color: $color-current-yellow;
 }

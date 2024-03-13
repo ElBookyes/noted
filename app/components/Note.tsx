@@ -2,13 +2,14 @@
 import BinIcon from "../icons/binIcon"
 import StarIcon from "../icons/starIcon"
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import toast from "react-hot-toast"
 import axios, { AxiosError } from "axios"
 import EditNote from "./EditNote"
 import DeleteNote from "./DeleteNote"
 import MakePublic from "./MakePublic"
+
 
 type Props = {
   title: string
@@ -27,8 +28,13 @@ const Note = ({ title, color, date, id } : Props) => {
   const [toggle, setToggle] = useState(false)
   const [deleteToggle, setDeleteToggle] = useState(false)
   const [makePublicToggle, setMakePublicToggle] = useState(false)
-  const [highlighted, setHighlighted] = useState(false)
+  const [isFavorite, setIsFavorite] = useState(() => {
+    return localStorage.getItem(`isFavorite_${id}`) === 'true';
+  });
   const [isDisabled, setIsDisabled] = useState(false)
+  const [isPublic, setIsPublic] = useState(() => {
+    return localStorage.getItem(`isPublic_${id}`) === 'true';
+  })
   const queryClient = useQueryClient()
   let toastPostID = "toastID";
 
@@ -46,7 +52,7 @@ const Note = ({ title, color, date, id } : Props) => {
         },
         onSuccess: (data) => {
           queryClient.invalidateQueries(["fav-notes"])
-          toast.success("Note added to favorites!", {id: toastPostID})
+          toast.success("Note Updated !", {id: toastPostID})
           setIsDisabled(false)
         },
       }
@@ -54,9 +60,14 @@ const Note = ({ title, color, date, id } : Props) => {
 
     const handleClick = async ( name: string ) => {
       setIsDisabled(true)
-      toastPostID = toast.loading("Adding to favorites", { id: toastPostID})
+      toastPostID = toast.loading("Updating note", { id: toastPostID})
       mutate({name, postId: id})
     }
+
+    useEffect(() => {
+      localStorage.setItem(`isPublic_${id}`, isPublic.toString());
+      localStorage.setItem(`isFavorite_${id}`, isFavorite.toString());
+    }, [isPublic, isFavorite, id]);
 
   return (
     <>
@@ -73,7 +84,7 @@ const Note = ({ title, color, date, id } : Props) => {
         <div className="bottom-note | kpds-nav kpds-site-header__inner">
             <div className="kpds-flex-group">{date.substring(0, date.length - 14)}</div>
             <div className="kpds-site-header__inner">
-                <button className="note-button | kpds-pointer kpds-round kpds-borderless" 
+                <button className={`note-button | kpds-pointer kpds-round kpds-borderless`} 
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
@@ -81,21 +92,22 @@ const Note = ({ title, color, date, id } : Props) => {
                   } }>
                   <BinIcon />
                 </button>
-                <button className="note-button | kpds-pointer kpds-round kpds-borderless"
+                <button className={`note-button | kpds-pointer kpds-round kpds-borderless ${isFavorite ? 'favorite-highlighted' : ''}`}
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
-                    setHighlighted(!highlighted)
+                    setIsFavorite(!isFavorite)
                     handleClick('favorites')
-                    console.log(highlighted)
+                    console.log(isFavorite)
                   }}>
-                  <StarIcon highlighted={highlighted} />
+                  <StarIcon />
                 </button>
-                <button className="public-button note-button | kpds-pointer kpds-round kpds-borderless"
+                <button className={`public-button note-button | kpds-pointer kpds-round kpds-borderless ${isPublic ? 'public-button-highlighted': ''}`}
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
                     setMakePublicToggle(true)
+                    setIsPublic(!isPublic)
                   }}>
                     P
                 </button>
