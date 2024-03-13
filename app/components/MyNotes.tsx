@@ -52,6 +52,7 @@ export default function MyNotes( { searchQuery } : SearchQuery) {
                       title={note.title}
                       color={note.color}
                       date={note.createdAt}
+                      fromFavorites
                     />
                     </>
                 ))
@@ -63,6 +64,7 @@ export default function MyNotes( { searchQuery } : SearchQuery) {
                     title={note.title}
                     color={note.color}
                     date={note.createdAt}
+                    fromFavorites
                     />
                 </>
             ))}
