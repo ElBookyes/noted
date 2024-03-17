@@ -108,7 +108,6 @@ const Note = ({ title, color, date, id, fromFavorites } : Props) => {
                     e.preventDefault()
                     e.stopPropagation()
                     setMakePublicToggle(true)
-                    setIsPublic(!isPublic)
                   }}>
                     P
                 </button>
@@ -117,7 +116,7 @@ const Note = ({ title, color, date, id, fromFavorites } : Props) => {
     </motion.div>
     {toggle && <EditNote id={id} content={title} color={color} setToggle={setToggle} />}
     {deleteToggle && <DeleteNote id={id} color={color} setDeleteToggle={setDeleteToggle} />}
-    {makePublicToggle && <MakePublic id={id} color={color} setMakePublicToggle={setMakePublicToggle} />}
+    {makePublicToggle && <MakePublic id={id} color={color} setMakePublicToggle={setMakePublicToggle} setIsPublic={setIsPublic} isPublic={isPublic} />}
     </>
   )
 }

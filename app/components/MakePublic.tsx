@@ -7,6 +7,8 @@ import { useState } from "react"
 type Props = {
     id: string
     setMakePublicToggle: (setMakePublicToggle: boolean) => void
+    setIsPublic: (setIsPublic: boolean) => void
+    isPublic: boolean
     color: string
 }
 
@@ -15,7 +17,7 @@ type Data = {
   postId: string
 }
 
-export default function MakePublic({ id, color, setMakePublicToggle }: Props) {
+export default function MakePublic({ id, color, setMakePublicToggle, setIsPublic, isPublic }: Props) {
     const queryClient = useQueryClient();
     let makePublicToastID = "makePublicToastID";
     const [isDisabled, setIsDisabled] = useState(false)
@@ -34,7 +36,7 @@ export default function MakePublic({ id, color, setMakePublicToggle }: Props) {
           },
           onSuccess: (data) => {
             queryClient.invalidateQueries(["public-notes"])
-            toast.success("Note added to public!", {id: makePublicToastID})
+            toast.success("Note Updated !", {id: makePublicToastID})
             setIsDisabled(false)
           },
         }
@@ -42,7 +44,7 @@ export default function MakePublic({ id, color, setMakePublicToggle }: Props) {
 
     const makePublic = async (name: string ) => {
       setIsDisabled(true)
-      makePublicToastID = toast.loading("Adding to public", {id: makePublicToastID})
+      makePublicToastID = toast.loading("Updating note", {id: makePublicToastID})
       mutate({name, postId: id})
     }
 
@@ -58,6 +60,7 @@ export default function MakePublic({ id, color, setMakePublicToggle }: Props) {
                    onClick={() => {
                     makePublic('public'),
                     setMakePublicToggle(false)
+                    setIsPublic(!isPublic)
                    }}>Make Public</button>
                 <button className="back-button | kpds-button kpds-fs-500 kpds-clr-current-white kpds-bg-current-black"
                    onClick={() => setMakePublicToggle(false)}>Back</button>
