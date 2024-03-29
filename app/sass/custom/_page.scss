@@ -15,7 +15,7 @@
     overflow: hidden;
     & main {
         display: grid;
-        grid-template-rows: 11% 1fr;
+        grid-template-rows: auto 1fr;
         overflow: hidden;
         height: 100%;
         background: $color-current-half;
@@ -72,7 +72,7 @@
 .note-section {
     overflow: auto;
     max-height: 65%;
-    margin-top: $size-13;
+    margin-top: $size-4;
     // scrollbar for Firefox
     scrollbar-color: $color-current-000 $color-current-transparent;
     @include mq(medium) {
@@ -117,7 +117,7 @@
 .categories {
     display: flex;
     justify-content: center;
-    margin-top: 1rem;
+    margin-top: $size-4;
     gap: .75rem;
     @include mq(medium) {
         justify-content: start;
@@ -129,5 +129,5 @@
 }
 
 .empty-notes {
-    margin-top: 1rem;
+    margin-top: $size-4;
 }
