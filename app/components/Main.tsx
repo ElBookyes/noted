@@ -30,13 +30,13 @@ export default function Main() {
         <div className="categories">
           <button onClick={() => {setFavToggle(false)
                                   setMyNotesToggle(true)
-                                  setPublicToggle(false)}} className={`${myNotesToggle ? 'current-category kpds-fw-bold' : ''} my-notes | kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 clean kpds-pointer`}>My Notes</button>
+                                  setPublicToggle(false)}} className={`${myNotesToggle ? 'current-category kpds-fw-bold' : ''} my-notes | kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 clean kpds-pointer`}>Home</button>
           <button onClick={() => {setFavToggle(true)
                                   setMyNotesToggle(false)
-                                  setPublicToggle(false)}} className={`${favToggle ? 'current-category kpds-fw-bold' : ''} favorite-notes | kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 clean kpds-pointer`}>Favorite Notes</button>
+                                  setPublicToggle(false)}} className={`${favToggle ? 'current-category kpds-fw-bold' : ''} favorite-notes | kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 clean kpds-pointer`}>Favorites</button>
           <button onClick={() => {setFavToggle(false)
                                   setMyNotesToggle(false)
-                                  setPublicToggle(true)}}  className={`${publicToggle ? 'current-category kpds-fw-bold' : ''} public-notes | kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 clean kpds-pointer`}>Public Notes</button>
+                                  setPublicToggle(true)}}  className={`${publicToggle ? 'current-category kpds-fw-bold' : ''} public-notes | kpds-clr-current-white kpds-fw-semi-bold kpds-fs-600 clean kpds-pointer`}>Public</button>
         </div>
       </div>
       <section className="note-section | kpds-container">
