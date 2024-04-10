@@ -120,6 +120,12 @@
     justify-content: center;
     margin-top: $size-4;
     gap: .75rem;
+    & > * {
+        &:hover,
+        &:focus {
+            border-bottom: solid 1px $color-current-000;
+        }
+    }
     @include mq(medium) {
         justify-content: start;
     }
